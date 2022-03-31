@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         int[][] board = new int[BOARD_SIZE][BOARD_SIZE];
-
+        //make array empty
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 board[i][j] = ' ';
@@ -30,21 +30,17 @@ public class Main {
         System.out.println("Player 1, please choose a row and column (1-3):");
         System.out.print("Row: ");
         int row = scanner.nextInt() - 1;
-
+        //make sure the rows are not above or below the size
         rowBounds(board, row);
 
         System.out.print("Column: ");
         int col = scanner.nextInt() - 1;
-
+        //make sure the columns are not above or below the size
         colBounds(board, col);
 
         System.out.println();
-
-        if (board[row][col] == 'X' || board[row][col] == 'O') {
-            System.out.println("Not a valid move, try again.");
-            playerOne(board);
-            System.out.println();
-        }
+        //checks if the spot is empty or not
+        isSpotTakenPlayerOne(board, row, col);
 
         board[row][col] = 'X';
 
@@ -52,7 +48,7 @@ public class Main {
         printBoard(board);
         System.out.println();
 
-
+        //checks if player 1 won the game or if it is a tie
         if (isPlayerOneWinner(board)) {
             System.out.println("Player 1 wins!");
             gameOver();
@@ -74,26 +70,24 @@ public class Main {
         System.out.println("Player 2, please choose a row and column (1-3):");
         System.out.print("Row: ");
         int row = scanner.nextInt() - 1;
-
+        //make sure the rows are not above or below the size
         rowBounds(board, row);
 
         System.out.print("Column: ");
         int col = scanner.nextInt() - 1;
-
+        //make sure the columns are not above or below the size
         colBounds(board, col);
 
         System.out.println();
-
-        if (board[row][col] == 'X' || board[row][col] == 'O') {
-            System.out.println("Not a valid move, try again.");
-            playerTwo(board);
-        }
+        //checks if the spot is empty or not
+        isSpotTakenPlayerTwo(board, row, col);
 
         board[row][col] = 'O';
 
         printBoard(board);
         System.out.println();
 
+        //checks if player 2 won the game or if it is a tie
         if (isPlayerTwoWinner(board)) {
             System.out.println("Player 2 wins!");
             gameOver();
@@ -103,7 +97,6 @@ public class Main {
         } else {
             playerOne(board);
         }
-
 
     }
 
@@ -133,6 +126,21 @@ public class Main {
         }
     }
 
+    private static void isSpotTakenPlayerOne(int[][] board, int row, int col) {
+        if (board[row][col] == 'X' || board[row][col] == 'O') {
+            System.out.println("Not a valid move, try again.");
+            playerOne(board);
+            System.out.println();
+        }
+    }
+
+    private static void isSpotTakenPlayerTwo(int[][] board, int row, int col) {
+        if (board[row][col] == 'X' || board[row][col] == 'O') {
+            System.out.println("Not a valid move, try again.");
+            playerTwo(board);
+            System.out.println();
+        }
+    }
 
     public static boolean isTie(int[][] board) {
         int sum = 0;

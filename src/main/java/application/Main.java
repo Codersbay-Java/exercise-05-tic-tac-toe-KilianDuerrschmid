@@ -18,7 +18,9 @@ public class Main {
         System.out.println("Welcome to Tic Tac Toe!");
 
         printBoard(board);
+
         System.out.println();
+
         playerOne(board);
 
     }
@@ -28,8 +30,14 @@ public class Main {
         System.out.println("Player 1, please choose a row and column (1-3):");
         System.out.print("Row: ");
         int row = scanner.nextInt() - 1;
+
+        rowBounds(board, row);
+
         System.out.print("Column: ");
         int col = scanner.nextInt() - 1;
+
+        colBounds(board, col);
+
         System.out.println();
 
         if (board[row][col] == 'X' || board[row][col] == 'O') {
@@ -59,13 +67,21 @@ public class Main {
 
     }
 
+
+
     public static void playerTwo(int[][] board) {
 
         System.out.println("Player 2, please choose a row and column (1-3):");
         System.out.print("Row: ");
         int row = scanner.nextInt() - 1;
+
+        rowBounds(board, row);
+
         System.out.print("Column: ");
         int col = scanner.nextInt() - 1;
+
+        colBounds(board, col);
+
         System.out.println();
 
         if (board[row][col] == 'X' || board[row][col] == 'O') {
@@ -74,7 +90,6 @@ public class Main {
         }
 
         board[row][col] = 'O';
-
 
         printBoard(board);
         System.out.println();
@@ -90,8 +105,6 @@ public class Main {
         }
 
 
-
-
     }
 
     static void printBoard(int[][] board) {
@@ -100,6 +113,22 @@ public class Main {
             for (int j = 0; j < BOARD_SIZE; j++) {
                 System.out.print("|" + (char) board[i][j] + "|");
             }
+            System.out.println();
+        }
+    }
+
+    private static void colBounds(int[][] board, int col) {
+        if(col > 2 || col < 0){
+            System.out.println("Not a valid move, try again.");
+            playerOne(board);
+            System.out.println();
+        }
+    }
+
+    private static void rowBounds(int[][] board, int row) {
+        if(row > 2 || row < 0){
+            System.out.println("Not a valid move, try again.");
+            playerOne(board);
             System.out.println();
         }
     }
@@ -127,7 +156,7 @@ public class Main {
     }
 
     public static boolean isPlayerOneWinner(int[][] board) {
-        if ((board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X') ||
+        if      ((board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X') ||
                 (board[1][0] == 'X' && board[1][1] == 'X' && board[1][2] == 'X') ||
                 (board[2][0] == 'X' && board[2][1] == 'X' && board[2][2] == 'X') ||
 
@@ -143,7 +172,7 @@ public class Main {
     }
 
     public static boolean isPlayerTwoWinner(int[][] board) {
-        if ((board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O') ||
+        if      ((board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O') ||
                 (board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O') ||
                 (board[2][0] == 'O' && board[2][1] == 'O' && board[2][2] == 'O') ||
 
